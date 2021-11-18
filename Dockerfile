@@ -1,4 +1,4 @@
-FROM python:2-alpine
+FROM python:3-alpine
 
 COPY ./requirements.txt /app/requirements.txt
 
@@ -13,6 +13,6 @@ RUN apk --update add --virtual build-dependencies libffi-dev openssl-dev python-
 
 COPY . /app
 
-ENTRYPOINT [ "python" ]
+ENTRYPOINT [ "python3" ]
 
 CMD [ "main.py" ]
