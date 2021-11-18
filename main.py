@@ -6,12 +6,12 @@ import tornado.ioloop
 import tornado.autoreload
 import sys
 import asyncio
-import psycopg2
+#import psycopg2
 import time
 
 # On IBM Cloud Cloud Foundry, get the port number from the environment variable PORT
 # When running this app on the local machine, default the port to 8000
-port = int(os.getenv('PORT', 8080))
+port = int(os.getenv('PORT', 8000))
 #port=8000
 class landingPage(tornado.web.RequestHandler):
     def get(self):
@@ -103,6 +103,7 @@ class payRequ(tornado.web.RequestHandler):
         json_out = req.json()
         self.render("static/genericresp.html",msg=json_out['CSPYRES']['CSPYRES']['MESSAGES'],cname=json_out['CSPYRES']['CSPYRES']['CUSTOMER_NAME'],hbal=json_out['CSPYRES']['CSPYRES']['HOLD_BALANCE'],lbal=json_out['CSPYRES']['CSPYRES']['LEDGER_BL'],bal=json_out['CSPYRES']['CSPYRES']['AVAILABLE_BALANCE'],cid=json_out['CSPYRES']['CSPYRES']['CUSTOMER_ID'],damt=json_out['CSPYRES']['CSPYRES']['DEBIT_AMOUNT_RES'],tid=json_out['CSPYRES']['CSPYRES']['TRANSACTION_ID'],date=json_out['CSPYRES']['CSPYRES']['SYS_DATE'],time=json_out['CSPYRES']['CSPYRES']['SYS_TIME'],bloc="payauth")
         print("message")
+        """
         mes=json_out['CSPYRES']['CSPYRES']['MESSAGES']
         cust_name=json_out['CSPYRES']['CSPYRES']['CUSTOMER_NAME']
         hold_bal=json_out['CSPYRES']['CSPYRES']['HOLD_BALANCE']
@@ -115,12 +116,15 @@ class payRequ(tornado.web.RequestHandler):
         sysTime1=json_out['CSPYRES']['CSPYRES']['SYS_TIME']
         sysTime = sysTime1.replace(".", ":")
         systimestamp=time.ctime()
+        
         try:
             connection = psycopg2.connect(host="dbaas901.hyperp-dbaas.cloud.ibm.com",port=29491,database="admin",user="admin",password="fading2White!!!")
             print("Connected")
             cursor = connection.cursor()
-            postgres_insert_query = """ INSERT INTO "TCS-Schema"."PayLog"(cust_name, message, "timestampSys","Customer_ID", "Response_Date", "Response_Time", "Trans_ID","debitAmt", "Balance", hold_bal, ledger_bal,acct_no) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
-            record_to_insert = (cust_name,mes,systimestamp,cust_id,sysDate,sysTime,transID,debitAmt,avail_bal,hold_bal,ldgr_bal,acct)
+        """
+            #postgres_insert_query = """ INSERT INTO "TCS-Schema"."PayLog"(cust_name, message, "timestampSys","Customer_ID", "Response_Date", "Response_Time", "Trans_ID","debitAmt", "Balance", hold_bal, ledger_bal,acct_no) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
+            
+        """record_to_insert = (cust_name,mes,systimestamp,cust_id,sysDate,sysTime,transID,debitAmt,avail_bal,hold_bal,ldgr_bal,acct)
             cursor.execute(postgres_insert_query, record_to_insert)
             
             connection.commit()
@@ -137,7 +141,7 @@ class payRequ(tornado.web.RequestHandler):
                 connection.close()
                 print("PostgreSQL connection is closed")
 
-
+        """
 
 class History(tornado.web.RequestHandler):
     def get(self):
@@ -147,14 +151,17 @@ class History(tornado.web.RequestHandler):
 
 class HistoryAction(tornado.web.RequestHandler):
     def post(self):
-
+        print( "Record inserted successfully into Paylog table")
+        """
         try:
             acct=str(self.get_body_argument("accnt"))
             connection = psycopg2.connect(host="dbaas901.hyperp-dbaas.cloud.ibm.com",port=29491,database="admin",user="admin",password="fading2White!!!")
             print("Connected to history tran")
             cursor = connection.cursor()
             print("Connected to history tran")
-            postgres_insert_query = """ SELECT  cust_name, message, "timestampSys","Customer_ID", "Response_Date", "Response_Time", "Trans_ID","debitAmt", "Balance", hold_bal, ledger_bal,acct_no from "TCS-Schema"."PayLog" """
+        """
+        #    postgres_insert_query = """ SELECT  cust_name, message, "timestampSys","Customer_ID", "Response_Date", "Response_Time", "Trans_ID","debitAmt", "Balance", hold_bal, ledger_bal,acct_no from "TCS-Schema"."PayLog" """
+        """
             print("Connected to history tran")
             #record_to_insert = (cust_name,mes,systimestamp,cust_id,sysDate,sysTime,transID,debitAmt,avail_bal,hold_bal,ldgr_bal,acct)
             cursor.execute(postgres_insert_query) 
@@ -176,6 +183,7 @@ class HistoryAction(tornado.web.RequestHandler):
                 cursor.close()
                 connection.close()
                 print("PostgreSQL connection is closed")
+        """
 
 
 
