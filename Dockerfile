@@ -10,7 +10,7 @@ RUN apk --update add --virtual build-dependencies libffi-dev openssl-dev python3
   && pip install --upgrade pipenv\
   && pip install --upgrade tornado\
   && pip install --upgrade requests\
-  && pip install -- upgrade asyncio\
+  && pip install --upgrade asyncio\
   && apk del build-dependencies
 
 COPY . /app
