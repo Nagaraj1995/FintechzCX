@@ -56,7 +56,7 @@ class basicRequestHandler(tornado.web.RequestHandler):
 class regRequ(tornado.web.RequestHandler):
     def post(self):
         base_url = 'https://api.eu-gb.apiconnect.appdomain.cloud/m1ganeshtcscom1543928228162-dev/sb/payments/custReg?acctId='
-	base_url = 'https://192.86.32.113:19443/cbsrgdbbapi/cusreg?AcctNo='
+	#base_url = 'https://192.86.32.113:19443/cbsrgdbbapi/cusreg?AcctNo='
 	# 100000001001 is the only working answerhttps://192.86.32.113:19443/cbsrgdbbapi/cusreg?AcctNo=
         #http://192.86.32.113:19443/cbsrgdbbapi/cusreg?AcctNo=
         #https://192.86.33.94:19443/cbs/cusreg?AcctNo=
