@@ -64,7 +64,8 @@ class regRequ(tornado.web.RequestHandler):
         headers = {'Content-Type': 'application/json'}
         end_url= base_url+str(self.get_body_argument("accnt"))
         print("before")
-        req = requests.get(end_url, headers=headers, auth=('ibmuser', 'ibmuser'), verify=False)
+	req = requests.get(end_url, headers=headers, auth=('ef748535-de65-4edb-a0fd-89f94ed994d3', ''), verify=False)
+        #req = requests.get(end_url, headers=headers, auth=('ibmuser', 'ibmuser'), verify=False)
         json_out = req.json()
         print("json")
         print(json_out)
