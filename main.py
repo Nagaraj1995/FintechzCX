@@ -56,16 +56,16 @@ class basicRequestHandler(tornado.web.RequestHandler):
 class regRequ(tornado.web.RequestHandler):
     def post(self):
         base_url = 'https://api.eu-gb.apiconnect.appdomain.cloud/m1ganeshtcscom1543928228162-dev/sb/payments/custReg?acctId='
-	#base_url = 'https://192.86.32.113:19443/cbsrgdbbapi/cusreg?AcctNo='
-	# 100000001001 is the only working answerhttps://192.86.32.113:19443/cbsrgdbbapi/cusreg?AcctNo=
+		#base_url = 'https://192.86.32.113:19443/cbsrgdbbapi/cusreg?AcctNo='
+		# 100000001001 is the only working answerhttps://192.86.32.113:19443/cbsrgdbbapi/cusreg?AcctNo=
         #http://192.86.32.113:19443/cbsrgdbbapi/cusreg?AcctNo=
         #https://192.86.33.94:19443/cbs/cusreg?AcctNo=
         #https://192.86.33.94:19443/cbsrgdbbapi/cusreg?AcctNo=
         headers = {'Content-Type': 'application/json'}
         end_url= base_url+str(self.get_body_argument("accnt"))
         print("before")
-	req = requests.get(end_url, headers=headers, auth=('ef748535-de65-4edb-a0fd-89f94ed994d3', ''), verify=False)
-        #req = requests.get(end_url, headers=headers, auth=('ibmuser', 'ibmuser'), verify=False)
+        req = requests.get(end_url, headers=headers, auth=('ef748535-de65-4edb-a0fd-89f94ed994d3', ''), verify=False)
+	#req = requests.get(end_url, headers=headers, auth=('ibmuser', 'ibmuser'), verify=False)
         json_out = req.json()
         print("json")
         print(json_out)
